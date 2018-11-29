@@ -2,23 +2,39 @@
   <!-- app页面 -->
   <div id="app1">
     <!-- 根据路由跳转到app的二级路由页面 -->
-    <router-view></router-view>
+    <transition name="router-fade" mode="out-in">
+      <!-- 如果路由中有meta属性且keepAlive为true  走这个路由 -->
+      <router-view v-if="$route.meta.keepAlive"></router-view>
+    </transition>
+    <transition name="router-fade" mode="out-in">
+      <!-- 如果路由中有meta属性且keepAlive为false  走这个路由 -->
+      <router-view v-if="!$route.meta.keepAlive"></router-view>
+    </transition>
+    <!-- svg组件 -->
+    <svg-icon></svg-icon>
   </div>
 </template>
 
 <script>
+import svgIcon from './components/common/svg';
 export default {
-  name: 'App'
+  name: 'App',
+  components:{
+    svgIcon
+  },
 }
 </script>
 
-<style>
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+<style lang="scss">
+// 引用基础样式
+@import './style/common';
+
+
+.router-fade-enter-active, .router-fade-leave-active {
+    transition: opacity .3s;
 }
+.router-fade-enter, .router-fade-leave-active {
+    opacity: 0;
+}
+
 </style>
