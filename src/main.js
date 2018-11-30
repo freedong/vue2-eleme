@@ -4,6 +4,10 @@ import Vue from 'vue'
 import App from './App'
 import router from './router'
 
+
+// 引入移动端适配rem的js
+import './config/rem'
+
 Vue.config.productionTip = false
 
 /* eslint-disable no-new */
